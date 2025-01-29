@@ -1,19 +1,21 @@
 package com.prediction.demo.infrastructure.messaging;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class KafkaProducer {
-    public static final String TOPIC_NAME = "prediction-topic";
+    @Value("${kafka.topic.name}")
+    private String topicName;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String message) {
         try {
-            kafkaTemplate.send(TOPIC_NAME, message);
+            kafkaTemplate.send(topicName, message);
             System.out.println("Message sent: " + message);
         } catch(Exception e) {
             System.out.println("Error sending message: " + e.getMessage());
