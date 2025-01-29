@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class FinancialDataProducer {
+public class KafkaProducer {
+    public static final String TOPIC_NAME = "prediction-topic";
+
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String message) {
         try {
-            kafkaTemplate.send("prediction-topic", message);
+            kafkaTemplate.send(TOPIC_NAME, message);
             System.out.println("Message sent: " + message);
         } catch(Exception e) {
             System.out.println("Error sending message: " + e.getMessage());

@@ -1,17 +1,17 @@
 package com.prediction.demo;
 
-import com.prediction.demo.infrastructure.messaging.FinancialDataProducer;
-import com.prediction.demo.integration.FinancialDataAcquirer;
+import com.prediction.demo.infrastructure.messaging.KafkaProducer;
+import com.prediction.demo.input.InputDataPreparer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
 
 public class CommonConfiguration {
     @Bean
-    public FinancialDataProducer financialDataProducer(KafkaTemplate<String, String> kafkaTemplate) {
-        return new FinancialDataProducer(kafkaTemplate); }
+    public KafkaProducer financialDataProducer(KafkaTemplate<String, String> kafkaTemplate) {
+        return new KafkaProducer(kafkaTemplate); }
 
     @Bean
-    public RepeatTest repeatTest(FinancialDataProducer financialDataProducer, FinancialDataAcquirer financialDataAcquirer) {
-        return new RepeatTest(financialDataProducer, financialDataAcquirer);
+    public InputDataPreparer prepareInputData() {
+        return new InputDataPreparer();
     }
 }

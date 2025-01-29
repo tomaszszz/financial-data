@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-
+@Deprecated
 @Service
 public class FinancialDataAcquirer {
     private static final String API_KEY = "cucurf9r01qri16ors1gcucurf9r01qri16ors20";
