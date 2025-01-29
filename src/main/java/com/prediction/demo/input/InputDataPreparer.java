@@ -30,7 +30,7 @@ public class InputDataPreparer {
             System.out.println( "Data read successfully. Records count: " + records.size() );
             return records;
         } catch (IOException e) {
-            System.out.println("Error while parsing: " + e.getMessage());
+            System.out.println("Error while reading: " + e.getMessage());
         }
         return null;
     }
