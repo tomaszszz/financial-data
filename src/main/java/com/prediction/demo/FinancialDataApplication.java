@@ -10,13 +10,9 @@ import java.io.IOException;
 public class FinancialDataApplication {
 
 	public static void main(String[] args) {
-		try {
-			SpringApplication.run(FinancialDataApplication.class, args)
-					.getBean(InputDataSender.class)
-					.prepareAndSendInputData();
-		} catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+		SpringApplication.run(FinancialDataApplication.class, args)
+				.getBean(InputDataSender.class)
+				.prepareAndSendInputData();
     }
 
 }

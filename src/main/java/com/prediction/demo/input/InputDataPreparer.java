@@ -16,12 +16,12 @@ import java.util.List;
 public class InputDataPreparer {
     private static final String CSV_DELIMITER = ";";
 
-    public List<InputData> prepareData(String csvPath) {
+    public List<FinancialData> prepareData(String csvPath) {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(csvPath))) {
-            List<InputData> records = reader.lines()
+            List<FinancialData> records = reader.lines()
                     .skip(1)
                     .map(line -> line.split(CSV_DELIMITER))
-                    .map(line -> InputData.builder()
+                    .map(line -> FinancialData.builder()
                             .timestamp(LocalDate.parse(line[0]))
                             .stockPrice(new BigDecimal(line[1]))
                             .build()

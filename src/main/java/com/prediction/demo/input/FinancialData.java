@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @Builder
-public class InputData {
+public class FinancialData {
     @JsonProperty("timestamp")
     private LocalDate timestamp;
 

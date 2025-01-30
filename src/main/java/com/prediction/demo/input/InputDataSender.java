@@ -1,10 +1,11 @@
 package com.prediction.demo.input;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prediction.demo.infrastructure.messaging.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 
-import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class InputDataSender {
@@ -12,14 +13,23 @@ public class InputDataSender {
     private final InputDataPreparer inputDataPreparer;
     private final String csvPath;
 
-    public void prepareAndSendInputData() throws IOException {
+    public void prepareAndSendInputData() {
         var inputData = inputDataPreparer.prepareData(csvPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
-        String serializedMessage = objectMapper.writeValueAsString(inputData);
 
-        kafkaProducer.sendMessage(serializedMessage);
-        System.out.println(serializedMessage);
+//        inputData.forEach((input) -> serializeAndSend(input, objectMapper));
+        serializeAndSend(inputData, objectMapper);
+    }
+
+    private void serializeAndSend(List<FinancialData> input, ObjectMapper objectMapper) {
+        try {
+            String serializedMessage = objectMapper.writeValueAsString(input);
+            kafkaProducer.sendMessage(serializedMessage);
+            System.out.println("Message sent: " + serializedMessage);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
