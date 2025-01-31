@@ -19,7 +19,6 @@ public class InputDataSender {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
 
-//        inputData.forEach((input) -> serializeAndSend(input, objectMapper));
         serializeAndSend(inputData, objectMapper);
     }
 
